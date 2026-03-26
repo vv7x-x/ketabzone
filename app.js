@@ -109,15 +109,15 @@ document.addEventListener("DOMContentLoaded", () => {
             if (isRegisterMode) {
                 createUserWithEmailAndPassword(auth, email, password)
                     .then((userCredential) => {
-                        alert("تم إنشاء حسابك بنجاح يابطل! أهلاً بك.");
+                        window.ketabToast("رائع يا فارس! تم إنشاء حسابك بنجاح وأهلاً بك في منطقتك ✨");
                         loginModal.classList.remove("active");
-                    }).catch((error) => alert("حدث خطأ أثناء الإنشاء: " + error.message));
+                    }).catch((error) => window.ketabToast("حدث خطأ أثناء الإنشاء: " + error.message, "error"));
             } else {
                 signInWithEmailAndPassword(auth, email, password)
                     .then((userCredential) => {
-                        alert("تم تسجيل الدخول بنجاح! هلمّ لنقرأ.");
+                        window.ketabToast("مرحباً بك مجدداً يا بطل! تم تسجيل دخولك بنجاح 🚀");
                         loginModal.classList.remove("active");
-                    }).catch((error) => alert("بيانات الدخول خاطئة أو غير مسجلة: " + error.message));
+                    }).catch((error) => window.ketabToast("بيانات الدخول خاطئة أو غير مسجلة: " + error.message, "error"));
             }
         });
     }
