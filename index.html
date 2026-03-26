@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KetabZone | منصة القراءة والتحميل</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* إضافات CSS لتحسين الأقسام والتصنيفات */
+        :root {
+            --primary-glow: #3b82f6;
+            --secondary-glow: #8b5cf6;
+        }
+
+        .category-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .book-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* تحسين مظهر الهيرو ليتناسب مع ذوقك السينمائي */
+        .hero {
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), 
+                        url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">Ketab<span>Zone</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="active">الرئيسية</a>
+                <a href="library.html">المكتبة الشاملة</a>
+                <a href="categories.html">الأقسام</a>
+                <a href="about.html">من نحن</a>
+            </div>
+            <div class="nav-actions">
+                <button class="search-btn">🔍</button>
+                <a href="admin.html" class="btn-primary" style="background:var(--secondary-color); color:#fff; text-decoration:none;font-size:0.9rem;">إدارة المحتوى</a>
+                <button class="btn-primary" style="background: transparent; border: 1px solid var(--primary-color);" id="loginBtn">دخول الأعضاء</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1>اكتشف عالماً جديداً مع <span>KetabZone</span></h1>
+            <p class="hero-subtitle">بوابتك الرقمية لأحدث الروايات والكتب العربية والعالمية.</p>
+            
+            <div class="search-box">
+                <input type="text" id="mainSearch" placeholder="ابحث عن اسم الكتاب، الكاتب، أو نوع الرواية..." onkeyup="if(window.searchBooks) window.searchBooks()">
+                <button class="btn-primary" onclick="if(window.searchBooks) window.searchBooks()">ابحث الآن</button>
+            </div>
+
+            <div class="daily-quote-card glass-panel">
+                <div class="quote-header">
+                    <span class="icon">💡</span>
+                    <h3>إلهام القراء</h3>
+                </div>
+                <blockquote class="quote-text">
+                    "ليس عليك أن تحرق الكتب لتدمر ثقافة، فقط اجعل الناس يكفون عن قراءتها."
+                </blockquote>
+                <p class="quote-author">- راي برادبري</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="section" id="library">
+        <div class="container">
+            <div style="text-align: center;">
+                <h2 class="section-title">استكشف <span>المكتبة</span></h2>
+                <p class="section-subtitle">تصفح الكتب حسب التصنيف الذي تفضله</p>
+            </div>
+
+            <div class="category-container" id="categories">
+                <button class="filter-btn active" onclick="filterBooks('all')">الكل</button>
+                <button class="filter-btn" onclick="filterBooks('روايات')">روايات</button>
+                <button class="filter-btn" onclick="filterBooks('قصص')">قصص قصيرة</button>
+                <button class="filter-btn" onclick="filterBooks('تنمية')">تطوير الذات</button>
+                <button class="filter-btn" onclick="filterBooks('تقنية')">كتب تقنية</button>
+                <button class="filter-btn" onclick="filterBooks('تاريخ')">تاريخ</button>
+            </div>
+            
+            <div class="books-grid" id="dynamicBooksGrid">
+                <!-- الكتب المحملة ستظهر هنا -->
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container" style="text-align: center;">
+            <div class="footer-logo" style="font-size: 1.5rem; font-weight: 800; margin-bottom: 15px;">
+                Ketab<span style="color:var(--primary-color);">Zone</span>
+            </div>
+            <p>&copy; 2026 KetabZone | تطوير وإدارة <strong style="color:var(--secondary-color);">Faris Hassan</strong></p>
+            <div style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">
+                جميع الحقوق محفوظة للمؤلفين والناشرين.
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-content glass-panel" style="max-width: 450px; text-align: right;">
+            <button class="close-modal" id="closeLogin">×</button>
+            <div class="profile-header">
+                <h2 id="authTitle">تسجيل الدخول</h2>
+                <p id="authSubtitle">انضم لمجتمع KetabZone لمميزات حصرية</p>
+            </div>
+            
+            <div class="auth-tabs" style="display:flex; margin-bottom: 20px; border-bottom: 1px solid var(--glass-border);">
+                <button id="tabLogin" style="flex:1; padding:10px; background:transparent; border:none; color:var(--primary-color); font-weight:bold; border-bottom: 2px solid var(--primary-color); cursor:pointer;">دخول</button>
+                <button id="tabRegister" style="flex:1; padding:10px; background:transparent; border:none; color:var(--text-muted); font-weight:bold; cursor:pointer;">عضوية جديدة</button>
+            </div>
+
+            <form id="authForm">
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px; color:var(--text-light); font-weight:bold;">البريد الإلكتروني:</label>
+                    <input type="email" id="authEmail" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(15,23,42,0.5); color: #fff; outline:none;" placeholder="name@example.com">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom:5px; color:var(--text-light); font-weight:bold;">كلمة المرور:</label>
+                    <input type="password" id="authPassword" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(15,23,42,0.5); color: #fff; outline:none;" placeholder="********">
+                </div>
+                
+                <p style="text-align: right; margin-bottom: 15px; font-size: 0.85rem;" id="forgotPasswordContainer">
+                    <a href="#" id="forgotPasswordBtn" style="color: var(--secondary-color);">نسيت كلمة المرور؟ (إرسال كود للإيميل)</a>
+                </p>
+
+                <button type="submit" id="authSubmitBtn" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1.1rem; border-radius: 8px;">تأكيد الدخول</button>
+            </form>
+
+            <div style="text-align: center; margin: 20px 0; color: var(--text-muted);">أو سجل عبر</div>
+
+            <button id="googleSignInBtn" style="width: 100%; padding: 12px; border-radius: 8px; background: #fff; color: #333; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="20" alt="Google">
+                جوجل
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
+    <script type="module" src="app.js"></script>
+    <script>
+        function filterBooks(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if(window.event && window.event.target) window.event.target.classList.add('active');
+
+            if(window.renderBooksByCategory) {
+                window.renderBooksByCategory(category);
+            }
+        }
+    </script>
+</body>
+</html>

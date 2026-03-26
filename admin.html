@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | KetabZone</title>
+    <!-- Google Fonts: Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-container { padding: 100px 20px; max-width: 900px; margin: 0 auto; min-height: 80vh;}
+        .form-group { margin-bottom: 20px; text-align: right; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--text-light); font-weight: bold;}
+        .form-group input, .form-group select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(15,23,42,0.5); color: #fff; outline: none;}
+        .form-group input:focus { border-color: var(--primary-color);}
+        .books-table { width: 100%; border-collapse: collapse; margin-top: 30px; text-align: right; }
+        .books-table th, .books-table td { padding: 15px; border-bottom: 1px solid var(--glass-border); }
+        .books-table th { color: var(--primary-color); }
+        .delete-btn { background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: background 0.3s;}
+        .delete-btn:hover { background: #dc2626; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">Ketab<span>Zone</span></a>
+            <div class="nav-links">
+                <a href="index.html" style="color: var(--secondary-color); font-weight: bold;">← العودة للموقع</a>
+            </div>
+            <div class="nav-actions">
+                <span style="color:var(--text-light); font-weight: bold;">مرحباً يا بطل، Faris Hassan 👑</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Content -->
+    <div class="admin-container">
+        <h2 class="section-title">لوحة التحكم <span>الخاصة بك</span></h2>
+        <p class="section-subtitle">من هنا يمكنك إضافة كتب جديدة وحذفها والتحكم التام في موقعك.</p>
+        
+        <!-- Add Book Form -->
+        <div class="glass-panel" style="margin-bottom: 40px;">
+            <h3 style="margin-bottom: 20px; border-right: 4px solid var(--primary-color); padding-right: 10px;">إضافة كتاب جديد</h3>
+            <form id="addBookForm">
+                <div class="form-group">
+                    <label>عنوان الكتاب:</label>
+                    <input type="text" id="bookTitle" required placeholder="مثال: نظرية الفستق">
+                </div>
+                <div class="form-group">
+                    <label>اسم المؤلف:</label>
+                    <input type="text" id="bookAuthor" required placeholder="مثال: فهد عامر الأحمدي">
+                </div>
+                <div class="form-group">
+                    <label>التصنيف:</label>
+                    <input type="text" id="bookCategory" required placeholder="مثال: تطوير الذات">
+                </div>
+                <div class="form-group">
+                    <label>التقييم من 5:</label>
+                    <input type="number" step="0.1" max="5" min="1" id="bookRating" required placeholder="مثال: 4.8">
+                </div>
+                <div class="form-group">
+                    <label>رابط صورة غلاف الكتاب (اختياري - يمكنك تركه فارغاً وسيتم وضع لون افتراضي جذاب):</label>
+                    <input type="url" id="bookCoverUrl" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label>ملف الكتاب (PDF):</label>
+                    <input type="file" id="bookPdf" accept=".pdf" required style="background: rgba(99, 102, 241, 0.2); border-color: var(--primary-color);">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; font-size: 1.2rem; padding: 15px;">رفع الكتاب وملف הـ PDF للموقع</button>
+            </form>
+        </div>
+
+        <!-- Books List -->
+        <div class="glass-panel">
+            <h3 style="margin-bottom: 20px; border-right: 4px solid var(--secondary-color); padding-right: 10px;">الكتب المرفوعة مسبقاً</h3>
+            <div style="overflow-x: auto;">
+                <table class="books-table">
+                    <thead>
+                        <tr>
+                            <th>العنوان</th>
+                            <th>المؤلف</th>
+                            <th>التصنيف</th>
+                            <th>التقييم</th>
+                            <th>ملف PDF</th>
+                            <th>إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminBooksList">
+                        <!-- Dynamic list -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 KetabZone | صُنع بحب بواسطة <strong>Faris Hassan</strong></p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
